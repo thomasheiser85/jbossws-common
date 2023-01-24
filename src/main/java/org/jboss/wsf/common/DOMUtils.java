@@ -80,6 +80,12 @@ public final class DOMUtils
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setValidating(false);
             factory.setNamespaceAware(true);
+            
+            // 2023-01-24: disable XXE
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            
             DocumentBuilder builder = factory.newDocumentBuilder();
             setEntityResolver(builder);
             return builder;
